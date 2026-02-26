@@ -1,0 +1,347 @@
+    <div id="confirmModal" class="modal-bg" style="display:none;">
+      <div class="modal" id="confirmBox">
+        <h2>Purchase Successful!</h2>
+        <div id="confirmDetails" style="margin:1em 0 1.5em 0;"></div>
+        <div style="font-size:2em;animation:popIn 0.7s infinite alternate;">✨</div>
+        <button onclick="document.getElementById('confirmModal').style.display='none'">Close</button>
+      </div>
+    </div>
+  <style>
+    /* Modal for login prompt */
+    .modal-bg {
+      position: fixed;
+      top: 0; left: 0; right: 0; bottom: 0;
+      background: rgba(35, 41, 70, 0.85);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      z-index: 1000;
+      animation: fadeIn 0.5s;
+    }
+    .modal {
+      background: #232946;
+      border-radius: 24px;
+      box-shadow: 0 8px 40px #000a;
+      border: 2.5px solid #ffd700;
+      padding: 2.5em 2em 2em 2em;
+      text-align: center;
+      max-width: 400px;
+      color: #fff;
+      animation: popIn 0.5s;
+    }
+    .modal h2 {
+      color: #ffd700;
+      margin-bottom: 0.5em;
+    }
+    .modal p {
+      color: #fff;
+      margin-bottom: 1.5em;
+      font-size: 1.1em;
+    }
+    .modal button {
+      padding: 0.7em 2em;
+      background: #ffd700;
+      color: #232946;
+      border: none;
+      border-radius: 8px;
+      font-weight: bold;
+      font-size: 1.1em;
+      cursor: pointer;
+      transition: background 0.2s, color 0.2s;
+    }
+    .modal button:hover {
+      background: #fff;
+      color: #232946;
+    }
+      /* Mobile Responsive Styles */
+      @media (max-width: 600px) {
+        .catalog {
+          padding: 1em 0.5em;
+          border-radius: 12px;
+        }
+        h1 {
+          font-size: 1.3em;
+        }
+        .features, .testimonials, .trust-badges {
+          margin: 1em 0;
+        }
+        .testimonials > div {
+          max-width: 98vw;
+          padding: 1em 0.5em;
+        }
+        .trust-badges img {
+          width: 48px;
+          height: 48px;
+        }
+      }
+    @keyframes fadeIn {
+      from { opacity: 0; } to { opacity: 1; }
+    }
+    @keyframes popIn {
+      0% { transform: scale(0.7); opacity: 0; }
+      100% { transform: scale(1); opacity: 1; }
+    }
+  </style>
+  <div id="loginModal" class="modal-bg" style="display:none;">
+    <div class="modal">
+      <h2>Login Required</h2>
+      <p>You must be logged in to make a purchase.<br>Enter your username and password below.</p>
+      <form id="loginForm">
+        <input type="text" id="loginUsername" placeholder="Enter your Username" required style="margin-bottom:0.5em;"><br>
+        <input type="password" id="loginPassword" placeholder="Enter your Password" required style="margin-bottom:1em;"><br>
+        <button type="submit">Login</button>
+        <span id="loginMsg" style="display:block;margin-top:1em;color:#ffd700;"></span>
+      </form>
+      <button onclick="document.getElementById('loginModal').style.display='none'">Cancel</button>
+    </div>
+  </div>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Store - Monetization App</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 2em;
+      background: linear-gradient(120deg, #232946 0%, #1a1a2e 100%);
+      min-height: 100vh;
+    }
+    h1 {
+      color: #ffd700;
+      text-shadow: 1px 1px 12px #232946;
+    }
+    .product {
+      border: 1.5px solid #ffd700;
+      border-radius: 16px;
+      box-shadow: 0 2px 16px rgba(40,40,80,0.18);
+      background: #232946;
+      color: #fff;
+      padding: 1em;
+      margin-bottom: 1.5em;
+      transition: box-shadow 0.2s;
+    }
+    .product:hover {
+      box-shadow: 0 4px 24px rgba(60,60,120,0.22);
+    }
+    button {
+      padding: 0.5em 1em;
+      background: #ffd700;
+      color: #232946;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+      font-weight: bold;
+      transition: background 0.2s, color 0.2s;
+    }
+    button:hover {
+      background: #fff;
+      color: #232946;
+    }
+    a {
+      margin-right: 1em;
+      color: #ffd700;
+      text-decoration: none;
+      font-weight: bold;
+    }
+    a:hover {
+      text-decoration: underline;
+    }
+  </style>
+</head>
+<body>
+    <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:1em;">
+      <div>
+        <a href="dashboard.html">&larr; Back</a>
+        <a href="finance.html" style="margin-left:1em;background:#ffd700;color:#232946;border:none;border-radius:8px;padding:0.5em 1.2em;font-weight:bold;cursor:pointer;text-decoration:none;">Next &rarr;</a>
+      </div>
+    </div>
+  <div style="display:flex;align-items:center;justify-content:space-between;">
+    <a href="dashboard.html">Dashboard</a>
+    <button id="openLogin" style="background:#ffd700;color:#232946;font-weight:bold;border-radius:8px;padding:0.5em 1.2em;border:none;cursor:pointer;">Login</button>
+  </div>
+  <script>
+    let authToken = '';
+    function showLoginModal() {
+      document.getElementById('loginModal').style.display = 'flex';
+    }
+    document.getElementById('loginForm').onsubmit = async (e) => {
+      e.preventDefault();
+      const username = document.getElementById('loginUsername').value;
+      const password = document.getElementById('loginPassword').value;
+      const res = await fetch('/auth/login', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ username, password })
+      });
+      const data = await res.json();
+      if (data.token) {
+        authToken = data.token;
+        document.getElementById('loginMsg').textContent = 'Login successful!';
+        setTimeout(() => {
+          document.getElementById('loginModal').style.display = 'none';
+        }, 800);
+      } else {
+        document.getElementById('loginMsg').textContent = data.error;
+      }
+    };
+    document.getElementById('openLogin').onclick = () => {
+      showLoginModal();
+    };
+  </script>
+  <h1>Store</h1>
+  <div id="products"></div>
+    <div style="margin:2em 0;text-align:center;">
+      <h3 style="color:#ffd700;">Instant Withdrawal</h3>
+      <input type="number" id="withdrawAmount" placeholder="Amount" style="padding:0.5em 1em;border-radius:8px;margin-right:1em;">
+      <input type="text" id="withdrawAccount" placeholder="Account (email, phone, etc.)" style="padding:0.5em 1em;border-radius:8px;margin-right:1em;">
+      <select id="withdrawMethod" style="padding:0.5em 1em;border-radius:8px;font-size:1.1em;">
+        <option value="cashapp">Cash App</option>
+        <option value="paypal">PayPal</option>
+        <option value="debit">Debit Card</option>
+        <option value="credit">Credit Card</option>
+      </select>
+      <button onclick="withdrawFunds()" style="padding:0.7em 2em;background:#ffd700;color:#232946;border:none;border-radius:8px;font-weight:bold;font-size:1.1em;cursor:pointer;margin-left:1em;">Withdraw Instantly</button>
+      <div id="withdrawMsg" style="margin-top:1em;color:#ffd700;font-weight:bold;"></div>
+    </div>
+      async function withdrawFunds() {
+        const amount = document.getElementById('withdrawAmount').value;
+        const account = document.getElementById('withdrawAccount').value;
+        const method = document.getElementById('withdrawMethod').value;
+        if (!amount || !account || !method) {
+          document.getElementById('withdrawMsg').textContent = 'Please fill all fields.';
+          return;
+        }
+        const res = await fetch('/payment/withdraw', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+            ...(authToken ? { 'Authorization': 'Bearer ' + authToken } : {})
+          },
+          body: JSON.stringify({ amount, method, account })
+        });
+        const data = await res.json();
+        document.getElementById('withdrawMsg').textContent = data.message || data.error;
+      }
+  <div id="purchaseMsg"></div>
+    <!-- Feature Highlights -->
+    <div class="features" style="margin:2em 0 1em 0;">
+      <h2 style="color:#ffd700;">Store Features</h2>
+      <ul style="list-style:none;padding:0;font-size:1.1em;color:#fff;">
+        <li style="margin-bottom:1em;"><b>Exclusive Products:</b> Curated luxury items and memberships.</li>
+        <li style="margin-bottom:1em;"><b>Instant Purchase:</b> Fast, secure checkout with confirmation modal.</li>
+        <li style="margin-bottom:1em;"><b>Premium Support:</b> Dedicated help for every customer.</li>
+      </ul>
+      <button style="padding:1em 2em;background:#ffd700;color:#232946;border:none;border-radius:12px;font-weight:bold;font-size:1.2em;cursor:pointer;box-shadow:0 2px 8px #0002;transition:background 0.2s;">Shop Now</button>
+    </div>
+    <!-- Testimonials -->
+    <div class="testimonials" style="margin:2em 0 1em 0;text-align:center;">
+      <h2 style="color:#ffd700;">Customer Reviews</h2>
+      <div style="display:flex;flex-direction:column;gap:1.5em;align-items:center;">
+        <div style="background:#232946;border-radius:16px;padding:1.5em 2em;max-width:350px;box-shadow:0 2px 16px #ffd70033;border:1.5px solid #ffd700;">
+          <p style="color:#fff;font-size:1.1em;">"The store is beautiful and the checkout is effortless. Five stars!"</p>
+          <span style="color:#ffd700;font-weight:bold;">— Olivia M., Designer</span>
+        </div>
+        <div style="background:#232946;border-radius:16px;padding:1.5em 2em;max-width:350px;box-shadow:0 2px 16px #ffd70033;border:1.5px solid #ffd700;">
+          <p style="color:#fff;font-size:1.1em;">"Premium products and amazing support. I’ll be back!"</p>
+          <span style="color:#ffd700;font-weight:bold;">— Ethan W., Collector</span>
+        </div>
+      </div>
+    </div>
+    <!-- Trust Badges -->
+    <div class="trust-badges" style="margin:2em 0 1em 0;text-align:center;">
+      <img src="https://img.icons8.com/color/96/000000/verified-account.png" alt="Verified" style="margin:0 1em;">
+      <img src="https://img.icons8.com/color/96/000000/security-checked.png" alt="Secure" style="margin:0 1em;">
+      <img src="https://img.icons8.com/color/96/000000/trophy.png" alt="Award" style="margin:0 1em;">
+      <p style="color:#ffd700;margin-top:1em;font-weight:bold;">Trusted by luxury shoppers and brands worldwide.</p>
+    </div>
+  <script>
+    // Product catalog
+    const catalog = [
+      {
+        id: 1,
+        name: 'E-Book: How to Monetize',
+        price: 10,
+        currency: 'USD',
+        description: 'A comprehensive guide to monetizing your skills and content online.',
+        image: 'https://images.unsplash.com/photo-1515378791036-0648a3ef77b2?auto=format&fit=crop&w=400&q=80'
+      },
+      {
+        id: 2,
+        name: 'Premium Membership',
+        price: 25,
+        currency: 'USD',
+        description: 'Unlock exclusive resources, community access, and premium support.',
+        image: 'https://images.unsplash.com/photo-1506744038136-46273834b3fb?auto=format&fit=crop&w=400&q=80'
+      },
+      {
+        id: 3,
+        name: 'Exclusive Video Course',
+        price: 50,
+        currency: 'USD',
+        description: 'Step-by-step video course on building and scaling your online business.',
+        image: 'https://images.unsplash.com/photo-1461749280684-dccba630e2f6?auto=format&fit=crop&w=400&q=80'
+      }
+    ];
+    const productsDiv = document.getElementById('products');
+    catalog.forEach(p => {
+      const div = document.createElement('div');
+      div.className = 'product';
+      div.innerHTML = `
+        <img src="${p.image}" alt="${p.name}" style="width:120px;height:80px;object-fit:cover;float:right;margin-left:1em;">
+        <strong>${p.name}</strong><br>
+        <span>${p.description}</span><br>
+        Price: $${p.price} ${p.currency}<br>
+        <button onclick="buy(${p.id})">Buy</button>
+        <div style="clear:both;"></div>
+      `;
+      productsDiv.appendChild(div);
+    });
+    async function buy(id) {
+      if (!authToken) {
+        showLoginModal();
+        return;
+      }
+      const product = catalog.find(p => p.id === id);
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': 'Bearer ' + authToken
+        },
+        body: JSON.stringify({ amount: product.price, currency: product.currency })
+      });
+      // Payment method selection
+      let method = document.getElementById('paymentMethod') ? document.getElementById('paymentMethod').value : 'cashapp';
+      const res = await fetch('/payment/pay', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': 'Bearer ' + authToken
+        },
+        body: JSON.stringify({ amount: product.price, currency: product.currency, method })
+      });
+        <div style="margin:2em 0;text-align:center;">
+          <label for="paymentMethod" style="color:#ffd700;font-weight:bold;margin-right:1em;">Choose Payment Method:</label>
+          <select id="paymentMethod" style="padding:0.5em 1em;border-radius:8px;font-size:1.1em;">
+            <option value="cashapp">Cash App</option>
+            <option value="paypal">PayPal</option>
+          </select>
+        </div>
+      const data = await res.json();
+      if (data.status === 'success' || data.message) {
+        document.getElementById('confirmDetails').innerHTML = `
+          <strong>${product.name}</strong><br>
+          <span>${product.description}</span><br>
+          <img src="${product.image}" alt="${product.name}" style="width:120px;height:80px;object-fit:cover;margin:1em 0;display:block;">
+          <div style="color:#ffd700;font-size:1.2em;">$${product.price} ${product.currency}</div>
+        `;
+        document.getElementById('confirmModal').style.display = 'flex';
+        document.getElementById('purchaseMsg').textContent = '';
+      } else {
+        document.getElementById('purchaseMsg').textContent = data.error || 'Purchase failed.';
+      }
+    }
+  </script>
+</body>
+</html>

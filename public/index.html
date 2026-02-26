@@ -1,0 +1,192 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Welcome to Monetization App</title>
+  <style>
+    body {
+      font-family: 'Segoe UI', Arial, sans-serif;
+      margin: 0;
+      min-height: 100vh;
+      background: linear-gradient(120deg, #232946 0%, #1a1a2e 100%);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .entry {
+      background: #232946;
+      border-radius: 24px;
+      box-shadow: 0 8px 40px rgba(40,40,80,0.22);
+      padding: 3em 2em;
+      text-align: center;
+      border: 2.5px solid #ffd700;
+      max-width: 420px;
+    }
+      /* Mobile Responsive Styles */
+      @media (max-width: 600px) {
+        .entry {
+          max-width: 98vw;
+          padding: 1.2em 0.5em;
+          border-radius: 12px;
+        }
+        h1 {
+          font-size: 1.3em;
+        }
+        .nav a {
+          font-size: 1em;
+          padding: 0.7em 0;
+          border-radius: 8px;
+        }
+        .features, .testimonials, .trust-badges {
+          margin: 1em 0;
+        }
+        .testimonials > div {
+          max-width: 98vw;
+          padding: 1em 0.5em;
+        }
+        .trust-badges img {
+          width: 48px;
+          height: 48px;
+        }
+      }
+    h1 {
+      color: #ffd700;
+      margin-bottom: 0.5em;
+      text-shadow: 1px 1px 12px #232946;
+      font-size: 2.2em;
+    }
+    p {
+      color: #fff;
+      margin-bottom: 2em;
+      font-size: 1.2em;
+    }
+    .nav {
+      margin-top: 2em;
+      display: flex;
+      flex-direction: column;
+      gap: 1em;
+    }
+    .nav a {
+      display: block;
+      padding: 1em 0;
+      background: #ffd700;
+      color: #232946;
+      border-radius: 12px;
+      text-decoration: none;
+      font-weight: bold;
+      font-size: 1.2em;
+      transition: background 0.2s, color 0.2s, box-shadow 0.2s;
+      box-shadow: 0 2px 8px #0002;
+    }
+    .nav a:hover {
+      background: #fff;
+      color: #232946;
+      box-shadow: 0 4px 16px #ffd70044;
+    }
+    /* Onboarding Modal Styles */
+    .modal-bg {
+      position: fixed;
+      top: 0; left: 0; right: 0; bottom: 0;
+      background: rgba(35, 41, 70, 0.85);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      z-index: 1000;
+      animation: fadeIn 0.5s;
+    }
+    .modal {
+      background: #232946;
+      border-radius: 24px;
+      box-shadow: 0 8px 40px #000a;
+      border: 2.5px solid #ffd700;
+      padding: 2.5em 2em 2em 2em;
+      text-align: center;
+      max-width: 400px;
+      color: #fff;
+      animation: popIn 0.5s;
+    }
+    .modal h2 {
+      color: #ffd700;
+      margin-bottom: 0.5em;
+    }
+    .modal p {
+      color: #fff;
+      margin-bottom: 1.5em;
+      font-size: 1.1em;
+    }
+    .modal button {
+      padding: 0.7em 2em;
+      background: #ffd700;
+      color: #232946;
+      border: none;
+      border-radius: 8px;
+      font-weight: bold;
+      font-size: 1.1em;
+      cursor: pointer;
+      transition: background 0.2s, color 0.2s;
+    }
+    .modal button:hover {
+      background: #fff;
+      color: #232946;
+    }
+    @keyframes fadeIn {
+      from { opacity: 0; } to { opacity: 1; }
+    }
+    @keyframes popIn {
+      0% { transform: scale(0.7); opacity: 0; }
+      100% { transform: scale(1); opacity: 1; }
+    }
+  </style>
+</head>
+<body>
+  <div id="onboard-bg" class="modal-bg" style="display:flex;">
+    <div class="modal">
+      <h2>Welcome!</h2>
+      <p>Experience a luxury platform for business, sales, and personal finance.<br>Get started by entering the app below.</p>
+      <button onclick="document.getElementById('onboard-bg').style.display='none'">Enter App</button>
+    </div>
+  </div>
+  <div class="entry">
+    <h1>Monetization Platform</h1>
+    <p>Grow your business, manage users, and sell products with ease.<br>Choose where to begin:</p>
+    <div class="nav">
+      <a href="dashboard.html">Dashboard</a>
+      <a href="store.html">Store</a>
+      <a href="finance.html">Finance Tracker</a>
+    </div>
+  </div>
+      <!-- Feature Highlights -->
+      <div class="features" style="margin:2em 0 1em 0;">
+        <h2 style="color:#ffd700;">Why Choose Us?</h2>
+        <ul style="list-style:none;padding:0;font-size:1.1em;color:#fff;">
+          <li style="margin-bottom:1em;"><b>Luxury Experience:</b> Elegant design, seamless navigation, and premium support.</li>
+          <li style="margin-bottom:1em;"><b>Secure Payments:</b> Powered by industry leaders, your transactions are safe.</li>
+          <li style="margin-bottom:1em;"><b>Personal Finance Tools:</b> Track, analyze, and grow your wealth.</li>
+          <li style="margin-bottom:1em;"><b>Business Growth:</b> Onboard users, manage sales, and scale effortlessly.</li>
+        </ul>
+      </div>
+      <!-- Testimonials -->
+      <div class="testimonials" style="margin:2em 0 1em 0;text-align:center;">
+        <h2 style="color:#ffd700;">What Our Clients Say</h2>
+        <div style="display:flex;flex-direction:column;gap:1.5em;align-items:center;">
+          <div style="background:#232946;border-radius:16px;padding:1.5em 2em;max-width:350px;box-shadow:0 2px 16px #ffd70033;border:1.5px solid #ffd700;">
+            <p style="color:#fff;font-size:1.1em;">"This platform transformed my business. The luxury feel and ease of use are unmatched."</p>
+            <span style="color:#ffd700;font-weight:bold;">— Sophia R., Boutique Owner</span>
+          </div>
+          <div style="background:#232946;border-radius:16px;padding:1.5em 2em;max-width:350px;box-shadow:0 2px 16px #ffd70033;border:1.5px solid #ffd700;">
+            <p style="color:#fff;font-size:1.1em;">"I love the finance tracker and the secure payments. Highly recommended!"</p>
+            <span style="color:#ffd700;font-weight:bold;">— James L., Entrepreneur</span>
+          </div>
+        </div>
+      </div>
+      <!-- Trust Badges -->
+      <div class="trust-badges" style="margin:2em 0 1em 0;text-align:center;">
+        <img src="https://img.icons8.com/color/96/000000/verified-account.png" alt="Verified" style="margin:0 1em;">
+        <img src="https://img.icons8.com/color/96/000000/security-checked.png" alt="Secure" style="margin:0 1em;">
+        <img src="https://img.icons8.com/color/96/000000/trophy.png" alt="Award" style="margin:0 1em;">
+        <p style="color:#ffd700;margin-top:1em;font-weight:bold;">Trusted by luxury brands and entrepreneurs worldwide.</p>
+      </div>
+</body>
+</html>
