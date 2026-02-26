@@ -16,12 +16,6 @@ const router = express.Router();
 const { payments } = require('./db');
 // Payment endpoint
 router.post('/pay', (req, res) => {
-  const { amount, currency } = req.body;
-  if (!amount || !currency) return res.status(400).json({ error: 'Missing fields' });
-  // Here you would call your payment provider API
-  payments.push({ amount, currency, date: new Date() });
-  res.json({ status: 'success', message: `Payment of ${amount} ${currency} processed.` });
-  // Expected: { amount, currency, method }
   const { amount, currency, method } = req.body;
   if (!amount || !currency || !method) return res.status(400).json({ error: 'Missing fields' });
   // Here you would call your payment provider API
