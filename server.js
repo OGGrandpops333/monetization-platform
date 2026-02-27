@@ -1,3 +1,24 @@
+// In-memory product catalog
+const products = [
+  { id: 1, name: 'Yoga Mat', price: 25.99 },
+  { id: 2, name: 'Resistance Bands', price: 15.99 },
+  { id: 3, name: 'Dumbbells', price: 45.00 },
+  { id: 4, name: 'Foam Roller', price: 19.99 },
+  { id: 5, name: 'Jump Rope', price: 9.99 }
+];
+
+// Fast product search endpoint
+app.get('/search', (req, res) => {
+  const q = (req.query.q || '').toLowerCase();
+  if (!q) return res.json([]);
+  const start = Date.now();
+  const results = products.filter(p => p.name.toLowerCase().includes(q));
+  const elapsed = Date.now() - start;
+  if (elapsed > 200) {
+    console.warn(`WARN: Slow search detected: ${elapsed}ms for "${q}"`);
+  }
+  res.json(results);
+});
 const express = require('express');
 const path = require('path');
 const { router: authRouter, authenticate } = require('./auth');
