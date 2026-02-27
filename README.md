@@ -25,12 +25,18 @@
 - POST /auth/register { username, password }
 - POST /auth/login { username, password }
 - GET /protected (JWT required)
-- POST /payment/pay { amount, currency }
+- POST /payment/pay { amount, currency, method }
 - GET /api/users
 - GET /api/payments
+- GET /search?q=productName — Search for products in the in-memory catalog (e.g., /search?q=yoga)
 
 ## Environment Variables
 - JWT_SECRET: Secret for JWT signing
 
+## Product Catalog & Search
+- The app includes an in-memory product catalog and a fast /search endpoint for product lookup.
+- To add more products, edit the `products` array in server.js.
+- For production, connect to a real database and update the search logic as needed.
+
 ## Notes
-- For production, replace in-memory DB with a real database and integrate a real payment provider.
+- For production, replace in-memory DB and product catalog with a real database and integrate a real payment provider.

@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Product Search</title>
+  <style>
+    body { font-family: Arial, sans-serif; margin: 2em; }
+    input, button { font-size: 1em; padding: 0.5em; }
+    #results { margin-top: 1em; }
+    .product { margin-bottom: 0.5em; }
+  </style>
+</head>
+<body>
+  <h1>Product Search</h1>
+  <input type="text" id="query" placeholder="Search for a product...">
+  <button onclick="search()">Search</button>
+  <div id="results"></div>
+  <script>
+    function search() {
+      const q = document.getElementById('query').value;
+      fetch(`/search?q=${encodeURIComponent(q)}`)
+        .then(res => res.json())
+        .then(data => {
+          const results = document.getElementById('results');
+          if (data.length === 0) {
+            results.innerHTML = '<em>No products found.</em>';
+          } else {
+            results.innerHTML = data.map(p => `<div class='product'><strong>${p.name}</strong> - $${p.price.toFixed(2)}</div>`).join('');
+          }
+        });
+    }
+  </script>
+</body>
+</html>
