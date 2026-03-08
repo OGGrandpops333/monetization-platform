@@ -1,3 +1,23 @@
+const express = require('express');
+const path = require('path');
+const { router: authRouter, authenticate } = require('./auth');
+const paymentRouter = require('./payment');
+const { users, payments } = require('./db');
+
+const app = express();
+const PORT = process.env.PORT || 3000;
+
+// Request logging
+app.use((req, res, next) => {
+  console.log(`${req.method} ${req.path}`);
+  next();
+});
+
+app.use(express.json());
+app.use(express.static(path.join(__dirname, 'public')));
+app.use('/auth', authRouter);
+app.use('/payment', paymentRouter);
+
 // In-memory product catalog
 const products = [
   { id: 1, name: 'Yoga Mat', price: 25.99 },
@@ -19,24 +39,6 @@ app.get('/search', (req, res) => {
   }
   res.json(results);
 });
-const express = require('express');
-const path = require('path');
-const { router: authRouter, authenticate } = require('./auth');
-const paymentRouter = require('./payment');
-const { users, payments } = require('./db');
-
-const app = express();
-const PORT = process.env.PORT || 3000;
-
-// Simple request logging
-app.use((req, res, next) => {
-  next();
-});
-
-app.use(express.json());
-app.use(express.static(path.join(__dirname, 'public')));
-app.use('/auth', authRouter);
-app.use('/payment', paymentRouter);
 
 // REST API endpoints (demo)
 app.get('/api/users', (req, res) => {

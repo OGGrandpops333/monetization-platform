@@ -1,19 +1,9 @@
-require('dotenv').config();
-const PAYPAL_CLIENT_ID = process.env.PAYPAL_CLIENT_ID;
-// Instant withdrawal endpoint (demo)
-router.post('/withdraw', (req, res) => {
-  const { amount, method, account } = req.body;
-  if (!amount || !method || !account) return res.status(400).json({ error: 'Missing fields' });
-  // TODO: Integrate real payout API for Cash App, PayPal, debit/credit
-  res.json({ status: 'success', message: `Withdrawal of ${amount} processed to ${account} via ${method}.` });
-});
 // payment.js - Payment processing integration
 const express = require('express');
 const router = express.Router();
 
-// Integrate with Stripe or another provider for production
-
 const { payments } = require('./db');
+
 // Payment endpoint
 router.post('/pay', (req, res) => {
   const { amount, currency, method } = req.body;
@@ -32,6 +22,14 @@ router.post('/pay', (req, res) => {
   }
   payments.push({ amount, currency, method, date: new Date() });
   res.json({ status: 'success', message: `Payment of ${amount} ${currency} processed. ${providerMsg}` });
+});
+
+// Instant withdrawal endpoint (demo)
+router.post('/withdraw', (req, res) => {
+  const { amount, method, account } = req.body;
+  if (!amount || !method || !account) return res.status(400).json({ error: 'Missing fields' });
+  // TODO: Integrate real payout API for Cash App, PayPal, debit/credit
+  res.json({ status: 'success', message: `Withdrawal of ${amount} processed to ${account} via ${method}.` });
 });
 
 module.exports = router;
